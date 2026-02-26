@@ -37,3 +37,35 @@ public class Graph {
             System.out.println(location + " -> " + adjList.get(location));
         }
     }
+    // BFS Traversal
+    public void bfs(String start) {
+
+        if (!adjList.containsKey(start)) {
+            System.out.println("Location not found.");
+            return;
+        }
+
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+
+        visited.add(start);
+        queue.add(start);
+
+        System.out.println("BFS Traversal:");
+
+        while (!queue.isEmpty()) {
+
+            String current = queue.poll();
+            System.out.print(current + " ");
+
+            for (String neighbor : adjList.get(current)) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        System.out.println();
+    }
+}

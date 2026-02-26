@@ -14,3 +14,26 @@ public class Graph {
     public void addLocation(String location) {
         adjList.putIfAbsent(location, new ArrayList<>());
     }
+    // Add road (Undirected)
+    public void addRoad(String source, String destination) {
+
+        if (!adjList.containsKey(source) || !adjList.containsKey(destination)) {
+            System.out.println("One or both locations not found.");
+            return;
+        }
+
+        adjList.get(source).add(destination);
+        adjList.get(destination).add(source);
+
+        System.out.println("Road added successfully.");
+    }
+
+    // Display connections
+    public void displayConnections() {
+
+        System.out.println("Road Connections:");
+
+        for (String location : adjList.keySet()) {
+            System.out.println(location + " -> " + adjList.get(location));
+        }
+    }

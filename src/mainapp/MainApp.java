@@ -21,6 +21,7 @@ public class MainApp {
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
 
+            
             choice = sc.nextInt();
             sc.nextLine(); 
 

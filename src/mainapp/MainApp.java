@@ -2,6 +2,7 @@ package mainapp;
 
 import Module_1.Graph;
 import Module_1.LocationBST;
+import Module_2.DataSorter;
 import java.util.Scanner;
 
 public class MainApp {
@@ -12,43 +13,21 @@ public class MainApp {
         int choice;
 
         do {
-            System.out.println("\n===== MODULE 1: SMART CITY ROUTE PLANNER =====");
-            System.out.println("1. Add Location");
-            System.out.println("2. Add Road");
-            System.out.println("3. Display Locations (Sorted - BST)");
-            System.out.println("4. Display Road Connections");
-            System.out.println("5. BFS Traversal");
+            System.out.println("\n===== MAIN MENU =====");
+            System.out.println("1. Module 1: Smart City Route Planner");
+            System.out.println("2. Module 2: Data Sorter");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
 
             choice = sc.nextInt();
-            sc.nextLine(); 
+            sc.nextLine();
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter location name: ");
-                    String location = sc.nextLine();
-                    bst.insert(location);
-                    graph.addLocation(location);
-                    System.out.println("Location added successfully!");
+                    runModule1(sc, bst, graph);
                     break;
                 case 2:
-                    System.out.print("Enter source location: ");
-                    String source = sc.nextLine();
-                    System.out.print("Enter destination location: ");
-                    String dest = sc.nextLine();
-                    graph.addRoad(source, dest);
-                    break;
-                case 3:
-                    bst.displayInOrder();
-                    break;
-                case 4:
-                    graph.displayConnections();
-                    break;
-                case 5:
-                    System.out.print("Enter starting location: ");
-                    String start = sc.nextLine();
-                    graph.bfs(start);
+                    DataSorter.start();
                     break;
                 case 0:
                     System.out.println("Exiting...");
@@ -58,5 +37,34 @@ public class MainApp {
             }
         } while (choice != 0);
         sc.close();
+    }
+
+    private static void runModule1(Scanner sc, LocationBST bst, Graph graph) {
+        int c;
+        do {
+            System.out.println("\n--- Module 1 Sub-Menu ---");
+            System.out.println("1. Add Location | 2. Add Road | 3. Show Sorted | 4. Show Graph | 5. BFS | 0. Back");
+            System.out.print("Choose: ");
+            c = sc.nextInt();
+            sc.nextLine();
+            
+            if (c == 1) {
+                System.out.print("Enter location: ");
+                String loc = sc.nextLine();
+                bst.insert(loc);
+                graph.addLocation(loc);
+            } else if (c == 2) {
+                System.out.print("Source: "); String s = sc.nextLine();
+                System.out.print("Dest: "); String d = sc.nextLine();
+                graph.addRoad(s, d);
+            } else if (c == 3) {
+                bst.displayInOrder();
+            } else if (c == 4) {
+                graph.displayConnections();
+            } else if (c == 5) {
+                System.out.print("Start node: "); String start = sc.nextLine();
+                graph.bfs(start);
+            }
+        } while (c != 0);
     }
 }
